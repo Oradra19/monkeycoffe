@@ -1,36 +1,168 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Monkey Coffee ☕
 
-## Getting Started
+A modern and responsive coffee shop landing page built with **Next.js 16**, featuring reusable components, responsive layouts, and a clean UI inspired by a Figma design.
 
-First, run the development server:
+---
+
+## 🚀 Technologies Used
+
+- Next.js 16 (App Router)
+- React 19
+- Tailwind CSS
+- Lucide React
+- next/font (Google Fonts)
+
+---
+
+## 📂 Project Structure
+
+```text
+src/
+│
+├── app/
+│   ├── layout.js
+│   ├── page.js
+│   └── globals.css
+│
+├── components/
+│   ├── Container.jsx
+│   ├── Section.jsx
+│   ├── SectionHeader.jsx
+│   ├── PrimaryButton.jsx
+│   ├── FeatureCard.jsx
+│   ├── GalleryImage.jsx
+│   ├── MenuCard.jsx
+│   └── InfoItem.jsx
+│
+└── sections/
+    ├── Navbar.jsx
+    ├── Hero.jsx
+    ├── AboutUs.jsx
+    ├── WhatWeServe.jsx
+    ├── Signature.jsx
+    ├── Ambience.jsx
+    ├── Mark.jsx
+    ├── VisitUs.jsx
+    └── Footer.jsx
+```
+
+---
+
+# ⚙️ Installation
+
+Clone the repository.
+
+```bash
+git clone https://github.com/Oradra19/monkeycoffe.git
+```
+
+Install dependencies.
+
+```bash
+npm install
+```
+
+Run the development server.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open the application.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+# 📦 Dependencies
 
-To learn more about Next.js, take a look at the following resources:
+```json
+{
+  "next": "^16",
+  "react": "^19",
+  "react-dom": "^19",
+  "tailwindcss": "^4",
+  "lucide-react": "^0.x"
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 🎨 Features
 
-## Deploy on Vercel
+- Responsive Layout
+- Reusable Components
+- Mobile Friendly
+- Next.js App Router
+- Optimized Images with Next/Image
+- Google Fonts using next/font
+- Modern UI inspired by Figma
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 🛒 Cart Persistence & Hydration
+
+Although this project is primarily a landing page, the shopping cart implementation was designed with client-side persistence in mind.
+
+To avoid hydration mismatch issues in Next.js, the cart state is only initialized after the component mounts on the client.
+
+Instead of reading from `localStorage` during server rendering, the application waits until the browser environment is available.
+
+Example:
+
+```jsx
+const [mounted, setMounted] = useState(false);
+
+useEffect(() => {
+  setMounted(true);
+}, []);
+
+if (!mounted) return null;
+```
+
+The cart data is then loaded inside a `useEffect` hook:
+
+```jsx
+useEffect(() => {
+  const savedCart = localStorage.getItem("cart");
+
+  if (savedCart) {
+    setCart(JSON.parse(savedCart));
+  }
+}, []);
+```
+
+Whenever the cart changes, it is synchronized back to localStorage.
+
+```jsx
+useEffect(() => {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}, [cart]);
+```
+
+This approach ensures:
+
+- No hydration mismatch
+- Safe access to browser APIs
+- Persistent cart data after page refresh
+- Better compatibility with Next.js server rendering
+
+---
+
+# 📱 Responsive Design
+
+The website is optimized for:
+
+- Mobile
+- Tablet
+- Desktop
+
+Responsive layouts are implemented using Tailwind CSS breakpoints.
+
+---
+
+# 📄 License
+
+This project is created for Intern test and portfolio purposes.
